@@ -16,7 +16,7 @@ router.get("/test", test);
 
 // Route to fetch all users, accessible only by admin users
 router.get("/", authenticate, isAdmin, getAllUsers);
-router.get("/:id", authenticate, getUser);
+router.get("/:id", getUser);
 router.get("/properties/:id", authenticate, getUserProperties);
 
 router.post("/", createUser);
