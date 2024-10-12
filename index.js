@@ -8,6 +8,9 @@ const categoryRoutes = require("./routes/category.route");
 
 const app = express();
 app.use(express.json());
+app.get('/', (req, res) => {
+  res.send('Working');
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/properties", propertyRoutes);
