@@ -14,9 +14,13 @@ const PropertySchema = new mongoose.Schema({
     ref: "Category",
     required: true,
   },
-  price: {
+  monthlyRent: {
     type: Number,
     required: true,
+  },
+  securityDeposit: {
+    type: Number,
+    default: 0,
   },
   facilities: [
     {
@@ -47,11 +51,15 @@ const PropertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  likeCount: {
+    type: Number,
+    default: 0,
+  },
   userRef: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-  },
+  }
 });
 
 const Property = mongoose.model("Property", PropertySchema);

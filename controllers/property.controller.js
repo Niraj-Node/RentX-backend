@@ -14,7 +14,8 @@ const createProperty = async (req, res, next) => {
     title,
     description,
     category,
-    price,
+    monthlyRent,
+    securityDeposit,
     facilities,
     images,
     address,
@@ -29,13 +30,15 @@ const createProperty = async (req, res, next) => {
       title,
       description,
       category,
-      price,
+      monthlyRent,
+      securityDeposit: securityDeposit || 0,
       facilities,
       images,
       address,
       city,
       state,
       country,
+      likeCount: 0, 
       userRef,
     });
     await newProperty.save();
@@ -88,13 +91,15 @@ const updateProperty = async (req, res, next) => {
       "title",
       "description",
       "category",
-      "price",
+      "monthlyRent",
+      "securityDeposit",
       "facilities",
       "images",
       "address",
       "city",
       "state",
       "country",
+      "likeCount",
     ];
 
     // Dynamically add only the fields that exist in req.body
