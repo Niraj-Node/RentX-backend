@@ -11,11 +11,11 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Working');
 });
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/properties", propertyRoutes);
-app.use("/api/facilities", facilityRoutes);
-app.use("/api/categories", categoryRoutes);
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/properties", propertyRoutes);
+app.use("/facilities", facilityRoutes);
+app.use("/categories", categoryRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
