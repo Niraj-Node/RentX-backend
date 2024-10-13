@@ -29,7 +29,7 @@ const signIn = async (req, res, next) => {
 
     // Set the token in a cookie and respond with user data
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, { httpOnly: true, sameSite: 'lax' })
       .status(200)
       .json(rest);
   } catch (error) {
