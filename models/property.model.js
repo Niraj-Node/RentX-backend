@@ -24,9 +24,15 @@ const PropertySchema = new mongoose.Schema({
   },
   facilities: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Facility",
-      required: true,
+      facility: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Facility",
+        required: true,
+      },
+      value: {
+        type: mongoose.Schema.Types.Mixed, // Can store dynamic values (e.g., number of rooms, boolean, string)
+        required: true,
+      },
     },
   ],
   images: [
