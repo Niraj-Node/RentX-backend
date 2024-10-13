@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.route");
 const userRoutes = require("./routes/user.route");
@@ -7,6 +8,7 @@ const facilityRoutes = require("./routes/facility.route");
 const categoryRoutes = require("./routes/category.route");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Working');
