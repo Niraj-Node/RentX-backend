@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.route");
 const userRoutes = require("./routes/user.route");
@@ -13,6 +14,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+app.use(cookieParser());
 app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Working');

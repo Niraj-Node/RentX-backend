@@ -29,7 +29,10 @@ const signIn = async (req, res, next) => {
 
     // Set the token in a cookie and respond with user data
     res
-      .cookie("access_token", token, { httpOnly: true, sameSite: 'lax' })
+      .cookie("access_token", token, { 
+        sameSite: 'lax',
+        // httpOnly: true,
+      })
       .status(200)
       .json(rest);
   } catch (error) {
@@ -80,8 +83,9 @@ const signIn = async (req, res, next) => {
 const signOut = async (req, res, next) => {
   try {
     // Clear the access token cookie and respond with a success message
-    res.clearCookie("access_token");
-    res.status(200).json("User has been logged out!");
+    res
+    .status(202)
+    .clearCookie("access_token").send("User has been logged out!");
   } catch (error) {
     next(error);
   }
