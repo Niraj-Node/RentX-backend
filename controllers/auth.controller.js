@@ -85,8 +85,14 @@ const signOut = async (req, res, next) => {
   try {
     // Clear the access token cookie and respond with a success message
     res
-    .status(202)
-    .clearCookie("access_token").send("User has been logged out!");
+      .clearCookie("access_token", {
+        sameSite: 'None',
+        secure: true,
+        httpOnly: true,
+        path: '/',
+      })
+      .status(202)
+      .send("User has been logged out!");
   } catch (error) {
     next(error);
   }
