@@ -4,11 +4,7 @@ const { errorHandler } = require("../utils/error");
 
 const authenticate = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader)
-      return next(errorHandler(401, "No token, authorization denied."));
-
-    const token = authHeader.split(" ")[1];
+    const token = req.cookies.access_token;
     if (!token)
       return next(errorHandler(401, "No token, authorization denied."));
 
