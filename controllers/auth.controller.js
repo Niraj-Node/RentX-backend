@@ -30,8 +30,9 @@ const signIn = async (req, res, next) => {
     // Set the token in a cookie and respond with user data
     res
       .cookie("access_token", token, { 
-        sameSite: 'lax',
-        // httpOnly: true,
+        sameSite: 'None',
+        secure: true,
+        httpOnly: true,
       })
       .status(200)
       .json(rest);
