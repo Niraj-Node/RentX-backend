@@ -30,7 +30,7 @@ const signIn = async (req, res, next) => {
     // Set the token in a cookie and respond with user data
     res
       .cookie("access_token", token, { 
-        sameSite: 'None',
+        sameSite: 'lax',
         secure: true,
         httpOnly: true,
       })
