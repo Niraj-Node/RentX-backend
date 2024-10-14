@@ -80,6 +80,22 @@ const signIn = async (req, res, next) => {
 //   }
 // };
 
+// Get Current User Controller
+const getCurrentUser = async (req, res, next) => {
+  try {
+    // Find the user by ID
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return next(errorHandler(404, "User not found!"));
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 // SignOut Controller
 const signOut = async (req, res, next) => {
   try {
@@ -98,4 +114,4 @@ const signOut = async (req, res, next) => {
   }
 };
 
-module.exports = { test, signIn, signOut };
+module.exports = { test, signIn, getCurrentUser, signOut };
