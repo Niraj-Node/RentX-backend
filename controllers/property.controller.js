@@ -22,6 +22,7 @@ const createProperty = async (req, res, next) => {
     city,
     state,
     country,
+    likeCount,
   } = req.body;
   const userRef = req.user.id;
 
@@ -38,7 +39,7 @@ const createProperty = async (req, res, next) => {
       city,
       state,
       country,
-      likeCount: 0, 
+      likeCount: likeCount || 0, 
       userRef,
     });
     await newProperty.save();
