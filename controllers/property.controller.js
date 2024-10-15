@@ -1,6 +1,7 @@
 const Property = require("../models/property.model.js");
 const User = require("../models/user.model.js");
 const { errorHandler } = require("../utils/error.js");
+const Slider = require("../models/slider.model.js");
 
 // Test Route
 const test = (req, res) => {
