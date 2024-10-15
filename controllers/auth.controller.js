@@ -19,6 +19,8 @@ const signIn = async (req, res, next) => {
     const validUser = await User.findOne({ email });
     if (!validUser) return next(errorHandler(404, "User Not Found!"));
 
+    const isBlocked = validUser.isBlocked;
+    if(isBlocked) return next(errorHandler(401, "User is blocked!"));
     // Check if the password is correct
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, "Wrong credentials!"));
