@@ -44,19 +44,19 @@ const updateSlider = async (req, res, next) => {
   }
 };
 
-// Delete a Slider
+// Delete Sliders by Property ID
 const deleteSlider = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const slider = await Slider.findByIdAndDelete(id);
+    // Check if any sliders exist with the given property ID
+    const slider = await Slider.findOne({ property: req.params.id });
+    if (!slider) return next(errorHandler(404, "Property in Slider not found!"));
+    
+    // Delete the property from the slider
+    await Slider.findOneAndDelete({ property: req.params.id });
 
-    if (!slider) {
-      return next(errorHandler(404, "Slider not found!"));
-    }
-
-    res.status(200).json("Slider has been deleted successfully.");
+    res.status(200).json("Sliders have been deleted successfully.");
   } catch (error) {
-    next(error);
+    next(error); // Pass any errors to the error handler middleware
   }
 };
 
