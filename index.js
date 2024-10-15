@@ -7,6 +7,7 @@ const userRoutes = require("./routes/user.route");
 const propertyRoutes = require("./routes/property.route");
 const facilityRoutes = require("./routes/facility.route");
 const categoryRoutes = require("./routes/category.route");
+const sliderRoutes = require("./routes/slider.route");
 
 const app = express();
 app.use(cors({
@@ -24,6 +25,7 @@ app.use("/users", userRoutes);
 app.use("/properties", propertyRoutes);
 app.use("/facilities", facilityRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/slider", sliderRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
