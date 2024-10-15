@@ -129,12 +129,19 @@ const updateProperty = async (req, res, next) => {
 const deleteProperty = async (req, res, next) => {
   const property = await Property.findById(req.params.id);
   if (!property) return next(errorHandler(404, "Property not found!"));
+  
+  // Check if the user is the owner or an admin
   if (req.user.id !== property.userRef.toString() && !req.user.isAdmin) {
     return next(errorHandler(401, "You can only delete your own property!"));
   }
 
   try {
+    // Delete the property
     await Property.findByIdAndDelete(req.params.id);
+    
+    // Delete the property from the slider
+    await Slider.findOneAndDelete({ property: req.params.id });
+    
     res.status(200).json("Property has been deleted successfully.");
   } catch (error) {
     next(error);
