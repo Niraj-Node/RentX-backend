@@ -142,6 +142,12 @@ const deleteProperty = async (req, res, next) => {
     
     // Delete the property from the slider
     await Slider.findOneAndDelete({ property: req.params.id });
+
+    // Remove the property from all users' favouriteProperties
+    await User.updateMany(
+      { favouriteProperties: property._id }, // Find users who have this property in their favourites
+      { $pull: { favouriteProperties: property._id } } // Remove the property from their favouriteProperties
+    );
     
     res.status(200).json("Property has been deleted successfully.");
   } catch (error) {
