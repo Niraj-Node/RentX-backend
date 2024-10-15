@@ -1,4 +1,5 @@
 const Property = require("../models/property.model.js");
+const User = require("../models/user.model.js");
 const { errorHandler } = require("../utils/error.js");
 
 // Test Route
@@ -140,6 +141,83 @@ const deleteProperty = async (req, res, next) => {
   }
 };
 
+
+// Like a property
+const likeProperty = async (req, res, next) => {
+  const propertyId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    // Find the property by ID
+    const property = await Property.findById(propertyId);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the property is already in the user's favourites
+    if (user.favouriteProperties.includes(propertyId)) {
+      return res.status(400).json({ message: "Property already liked" });
+    }
+
+    // Add the property to the user's favourite properties
+    user.favouriteProperties.push(propertyId);
+    await user.save();
+
+    // Increment the property's like count
+    property.likeCount += 1;
+    await property.save();
+
+    res.status(200).json({ message: "Property liked successfully", likeCount: property.likeCount });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Dislike a property
+const dislikeProperty = async (req, res, next) => {
+  const propertyId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    // Find the property by ID
+    const property = await Property.findById(propertyId);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the property is in the user's favourites
+    if (!user.favouriteProperties.includes(propertyId)) {
+      return res.status(400).json({ message: "Property not in favourites" });
+    }
+
+    // Remove the property from the user's favourite properties
+    user.favouriteProperties = user.favouriteProperties.filter(
+      (favProperty) => favProperty.toString() !== propertyId
+    );
+    await user.save();
+
+    // Decrement the property's like count
+    property.likeCount -= 1;
+    await property.save();
+
+    res.status(200).json({ message: "Property disliked successfully", likeCount: property.likeCount });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   test,
   createProperty,
@@ -147,4 +225,6 @@ module.exports = {
   getAllProperties,
   updateProperty,
   deleteProperty,
+  likeProperty,
+  dislikeProperty,
 };
