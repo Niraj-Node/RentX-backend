@@ -86,7 +86,7 @@ const signIn = async (req, res, next) => {
 const getCurrentUser = async (req, res, next) => {
   try {
     // Find the user by ID
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user._id).select("-password");
     if (!user) {
       return next(errorHandler(404, "User not found!"));
     }
