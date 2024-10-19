@@ -58,7 +58,7 @@ const getAllUsers = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   // Ensure the user is updating their own account
-  if (req.user.id !== req.params.id) {
+  if (req.user.id !== req.params.id || req.user.isAdmin) {
     return next(errorHandler(401, "You can only update your own account!"));
   }
 
