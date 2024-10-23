@@ -197,8 +197,11 @@ const verifyOTP = async (req, res, next) => {
       return next(errorHandler(400, "Invalid or expired OTP"));
     }
 
-    await createUser(req, res, next);
+    const { name, password, mobileNumber } = req.body;
+    const newUser = new User({ name, email, password, mobileNumber });
+    await newUser.save();
     await OTP.findByIdAndDelete(otpRecord._id);
+    res.status(201).json("User Created Successfully!");
   } catch (error) {
     next(error);
   }
