@@ -10,11 +10,20 @@ const categoryRoutes = require("./routes/category.route");
 const sliderRoutes = require("./routes/slider.route");
 
 const app = express();
+
+const allowedOrigins = ["https://rentx-main.vercel.app", "https://rentx-admin-side.vercel.app"];
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 app.get('/', (req, res) => {
