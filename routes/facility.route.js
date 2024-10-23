@@ -21,7 +21,7 @@ router.post("/", authenticate, isAdmin, createFacility);
 router.get("/:id", authenticate, getFacility);
 
 // Get All Facilities
-router.get("/", authenticate, getAllFacilities);
+router.get("/", getAllFacilities);
 
 // Update Facility (Admin only)
 router.put("/:id", authenticate, isAdmin, updateFacility);

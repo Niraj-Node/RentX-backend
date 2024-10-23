@@ -21,7 +21,7 @@ router.post("/", authenticate, isAdmin, createCategory);
 router.get("/:id", authenticate, getCategory);
 
 // Get All Categories
-router.get("/", authenticate, getAllCategories);
+router.get("/", getAllCategories);
 
 // Update Category (Admin only)
 router.put("/:id", authenticate, isAdmin, updateCategory);
