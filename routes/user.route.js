@@ -19,7 +19,7 @@ router.get("/", authenticate, isAdmin, getAllUsers);
 router.get("/:id", getUser);
 router.get("/properties/:id", authenticate, getUserProperties);
 
-router.post("/", createUser);
+//router.post("/", createUser);
 router.put("/:id", authenticate, updateUser);
 
 // Users can only delete their own data, or admins can delete any user (handled in controller)
