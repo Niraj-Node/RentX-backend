@@ -58,7 +58,7 @@ const signInAdmin = async (req, res, next) => {
     if(isBlocked) return next(errorHandler(401, "User is blocked!"));
 
     const isAdmin = validUser.isAdmin;
-    if(isAdmin) return next(errorHandler(401, "User is not an Admin!"));
+    if(!isAdmin) return next(errorHandler(401, "User is not an Admin!"));
 
     // Check if the password is correct
     const validPassword = bcryptjs.compareSync(password, validUser.password);
