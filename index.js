@@ -11,15 +11,8 @@ const sliderRoutes = require("./routes/slider.route");
 
 const app = express();
 
-const allowedOrigins = ["https://stayx.in/","https://rentx-main.vercel.app", "https://rentx-admin-side.vercel.app"]; // Dummy Push
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
